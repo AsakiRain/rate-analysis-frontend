@@ -38,6 +38,7 @@ interface Good {
   price: number;
   sales: number;
 }
+
 const router = useRouter();
 
 const bodyStyle = { padding: 0, height: '100px' };
@@ -68,6 +69,7 @@ const handleClick = (good: Good) => {
 .goodCard {
   padding: 0;
   height: 100px;
+  cursor: pointer;
 }
 .goodBody {
   display: flex;
