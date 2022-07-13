@@ -60,7 +60,7 @@ watch(
     if (paths[1] === 'detail') {
       inDetail.value = true;
     } else {
-      inDetail.value = true;
+      inDetail.value = false;
     }
   },
   {
