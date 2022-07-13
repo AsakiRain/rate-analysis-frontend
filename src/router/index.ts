@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import pinia from '@/store';
 import useGlobalStore from '@/store/global';
-import { ElMessage } from 'element-plus';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,36 +19,29 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/stat/index.vue')
       },
       {
-        path: '/good',
-        name: 'good',
-        component: () => import('@/views/good/index.vue'),
+        path: '/goods',
+        name: 'goods',
+        component: () => import('@/views/goods/index.vue')
+      },
+      {
+        path: '/detail',
+        name: 'detail',
+        component: () => import('@/views/detail/index.vue'),
         children: [
           {
-            path: '/good',
-            name: 'board',
-            component: () => import('@/views/good/components/Board.vue')
+            path: '/detail/list',
+            name: 'list',
+            component: () => import('@/views/detail/components/List.vue')
           },
           {
-            path: '/good/detail',
-            name: 'detail',
-            component: () => import('@/views/good/components/Detail.vue'),
-            children: [
-              {
-                path: '/good/detail/list',
-                name: 'list',
-                component: () => import('@/views/good/components/List.vue')
-              },
-              {
-                path: '/good/detail/cloud',
-                name: 'cloud',
-                component: () => import('@/views/good/components/Cloud.vue')
-              },
-              {
-                path: '/good/detail/emo',
-                name: 'emo',
-                component: () => import('@/views/good/components/Emo.vue')
-              }
-            ]
+            path: '/detail/cloud',
+            name: 'cloud',
+            component: () => import('@/views/detail/components/Cloud.vue')
+          },
+          {
+            path: '/detail/emo',
+            name: 'emo',
+            component: () => import('@/views/detail/components/Emo.vue')
           }
         ]
       },

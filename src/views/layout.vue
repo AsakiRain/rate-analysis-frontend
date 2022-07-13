@@ -25,6 +25,7 @@ import Menu from '@/components/Menu.vue';
   display: flex;
   flex-direction: column;
   width: 200px;
+  overflow: hidden;
 }
 .el-main {
   padding: 0;
