@@ -1,7 +1,7 @@
 <template>
   <el-header>
     <el-page-header :icon="ArrowLeft" title="返回" @back="goBack">
-      <template #content><span class="pageHeaderContent">统计</span></template>
+      <template #content><span class="pageHeaderContent">统计信息</span></template>
     </el-page-header>
   </el-header>
   <el-main> </el-main>
