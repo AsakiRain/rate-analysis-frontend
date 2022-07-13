@@ -62,6 +62,9 @@ watch(
     } else {
       inDetail.value = true;
     }
+  },
+  {
+    immediate: true
   }
 );
 const activeMenu = computed(() => {
