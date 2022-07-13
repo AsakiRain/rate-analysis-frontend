@@ -3,7 +3,7 @@
     background-color="#f5f5f5"
     id="menu"
     :default-active="activeMenu"
-    :router="true"
+    @select="handleSelect"
   >
     <el-menu-item index="/">
       <el-icon><HomeFilled /></el-icon>
@@ -22,6 +22,9 @@
         <el-icon><Menu /></el-icon>
         <span>商品详情</span>
       </template>
+      <el-menu-item index="/detail" :disabled="!inDetail"
+        >商品概览</el-menu-item
+      >
       <el-menu-item index="/detail/list" :disabled="!inDetail"
         >评论列表</el-menu-item
       >
@@ -51,13 +54,18 @@ import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
+
 const inDetail = ref(false);
+
+const activeMenu = computed(() => {
+  return route.path;
+});
 
 watch(
   () => router.currentRoute.value.fullPath,
   (val: string) => {
-    const paths = val.split('/');
-    if (paths[1] === 'detail') {
+    const to = val.slice(1, 7);
+    if (to === 'detail') {
       inDetail.value = true;
     } else {
       inDetail.value = false;
@@ -67,9 +75,17 @@ watch(
     immediate: true
   }
 );
-const activeMenu = computed(() => {
-  return route.path;
-});
+
+const handleSelect = (path: string) => {
+  if (path.slice(1, 7) === 'detail') {
+    router.push({
+      path: path,
+      query: route.query
+    });
+  } else {
+    router.push(path);
+  }
+};
 </script>
 <style scoped>
 #menu {

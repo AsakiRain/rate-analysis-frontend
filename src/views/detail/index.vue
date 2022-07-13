@@ -12,6 +12,7 @@
             @select="handleSelect"
             :default-active="activeMenu"
           >
+            <el-menu-item index="/detail">商品概览</el-menu-item>
             <el-menu-item index="/detail/list">评论查看</el-menu-item>
             <el-menu-item index="/detail/cloud">词云统计</el-menu-item>
             <el-menu-item index="/detail/emo">情感分析</el-menu-item>
