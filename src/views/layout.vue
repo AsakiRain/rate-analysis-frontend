@@ -1,10 +1,10 @@
 <template>
   <el-container id="wrapper">
-    <el-aside>
+    <el-aside id="sider">
       <Header />
       <Menu />
     </el-aside>
-    <el-main>
+    <el-main id="mainWrapper">
       <router-view />
     </el-main>
   </el-container>
@@ -13,7 +13,7 @@
 import Header from '@/components/Header.vue';
 import Menu from '@/components/Menu.vue';
 </script>
-<style scoped>
+<style>
 #wrapper {
   position: absolute;
   top: 0;
@@ -21,15 +21,19 @@ import Menu from '@/components/Menu.vue';
   right: 0;
   bottom: 0;
 }
-.el-aside {
+#sider {
   display: flex;
   flex-direction: column;
   width: 200px;
   overflow: hidden;
 }
-.el-main {
+#mainWrapper {
   padding: 0;
   display: flex;
   flex-direction: column;
+}
+.pageWrapper {
+  background-color: #f0f2f5;
+  flex: 1;
 }
 </style>

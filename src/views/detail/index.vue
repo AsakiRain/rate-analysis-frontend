@@ -1,5 +1,5 @@
 <template>
-  <el-header>
+  <el-header class="navHeader">
     <el-page-header :icon="ArrowLeft" @back="goBack">
       <template #title>
         <span class="subTitle">返回</span>
@@ -7,15 +7,15 @@
       <template #content>
         <span>
           <el-menu
+            background-color="rgb(48, 65, 86)"
+            text-color="rgb(191, 203, 217)"
             mode="horizontal"
             :ellipsis="false"
             @select="handleSelect"
             :default-active="activeMenu"
           >
-            <el-menu-item index="/detail">商品概览</el-menu-item>
-            <el-menu-item index="/detail/list">评论查看</el-menu-item>
-            <el-menu-item index="/detail/cloud">词云统计</el-menu-item>
-            <el-menu-item index="/detail/emo">情感分析</el-menu-item>
+            <el-menu-item index="/detail/summary">商品概览</el-menu-item>
+            <el-menu-item index="/detail/statistic">数据分析</el-menu-item>
           </el-menu>
         </span>
       </template>
@@ -46,19 +46,11 @@ const handleSelect = (path: string) => {
 };
 </script>
 <style scoped>
-.el-header {
-  display: flex;
-  align-items: center;
-  height: 50px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e5e5e5;
-}
 .subTitle {
   line-height: 50px;
 }
 .el-menu {
   height: 50px;
-  background-color: #f5f5f5;
 }
 .el-menu-item {
   font-weight: bold;

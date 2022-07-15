@@ -1,6 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import pinia from '@/store';
-import useGlobalStore from '@/store/global';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,27 +22,16 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/goods/index.vue')
       },
       {
-        path: '/detail',
-        name: 'detail',
-        component: () => import('@/views/detail/index.vue'),
-        children: [
-          {
-            path: '/detail/list',
-            name: 'list',
-            component: () => import('@/views/detail/components/List.vue')
-          },
-          {
-            path: '/detail/cloud',
-            name: 'cloud',
-            component: () => import('@/views/detail/components/Cloud.vue')
-          },
-          {
-            path: '/detail/emo',
-            name: 'emo',
-            component: () => import('@/views/detail/components/Emo.vue')
-          }
-        ]
+        path: '/detail/summary',
+        name: 'summary',
+        component: () => import('@/views/summary/index.vue')
       },
+      {
+        path: '/detail/statistic',
+        name: 'statictic',
+        component: () => import('@/views/statistic/index.vue')
+      },
+
       {
         path: '/about',
         name: 'about',
@@ -58,10 +45,8 @@ const routes: Array<RouteRecordRaw> = [
   }
 ];
 
-const global = useGlobalStore(pinia);
-
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 });
 

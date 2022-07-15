@@ -1,6 +1,7 @@
 <template>
   <el-menu
-    background-color="#f5f5f5"
+    background-color="rgb(48, 65, 86)"
+    text-color="rgb(191, 203, 217)"
     id="menu"
     :default-active="activeMenu"
     @select="handleSelect"
@@ -22,17 +23,11 @@
         <el-icon><Menu /></el-icon>
         <span>商品详情</span>
       </template>
-      <el-menu-item index="/detail" :disabled="!inDetail"
+      <el-menu-item index="/detail/summary" :disabled="!inDetail"
         >商品概览</el-menu-item
       >
-      <el-menu-item index="/detail/list" :disabled="!inDetail"
-        >评论列表</el-menu-item
-      >
-      <el-menu-item index="/detail/cloud" :disabled="!inDetail"
-        >词云统计</el-menu-item
-      >
-      <el-menu-item index="/detail/emo" :disabled="!inDetail"
-        >情感分析</el-menu-item
+      <el-menu-item index="/detail/statistic" :disabled="!inDetail"
+        >数据分析</el-menu-item
       >
     </el-sub-menu>
     <el-menu-item index="/about">

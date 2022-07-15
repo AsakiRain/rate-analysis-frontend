@@ -9,7 +9,7 @@
       @click="handleClick(good)"
     >
       <div class="goodBody">
-        <el-image :src="good.pic" class="goodPic">
+        <el-image :src="JSON.parse(good.picture)[0]" class="goodPic">
           <template #error>
             <div class="errSlot">
               <el-icon><Picture /></el-icon>
@@ -18,7 +18,7 @@
         </el-image>
         <div class="goodInfo">
           <div class="goodName">{{ good.name }}</div>
-          <div class="goodSales">销量：{{ good.sales }}</div>
+          <!-- <div class="goodSales">销量：{{ good.sales }}</div> -->
           <div class="goodPrice">￥{{ good.price }}</div>
         </div>
       </div>
@@ -45,14 +45,14 @@ const bodyStyle = { padding: 0, height: '100px' };
 
 const goods = reactive([] as any);
 
-apiGet('/goods').then((res) => {
+apiGet('/api/goods').then((res) => {
   const data = res.data;
   goods.push(...data);
 });
 
 const handleClick = (good: Good) => {
   router.push({
-    path: '/detail',
+    path: '/detail/summary',
     query: {
       id: good.id
     }
@@ -70,6 +70,7 @@ const handleClick = (good: Good) => {
   padding: 0;
   height: 100px;
   cursor: pointer;
+  max-width: 400px;
 }
 .goodBody {
   display: flex;
@@ -81,10 +82,11 @@ const handleClick = (good: Good) => {
   width: 100px;
 }
 .goodInfo {
-  padding: 16px;
+  padding: 10px;
+  flex: 1;
 }
 .goodName {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 .goodSales {

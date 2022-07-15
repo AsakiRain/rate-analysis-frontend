@@ -1,8 +1,8 @@
 <template>
-  <pageHeader title="首页" tip="首页其实不需要这个组件" />
+  <pageHeader title="数据分析" tip="就1000条评论还分析什么东西" />
   <el-main class="pageWrapper"></el-main>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 import pageHeader from '@/components/pageHeader.vue';
 </script>
 <style scoped></style>
