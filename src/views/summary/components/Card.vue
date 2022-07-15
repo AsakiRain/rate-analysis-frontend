@@ -1,32 +1,41 @@
 <template>
-  <div class="cardWrapper">
-    <el-card :body-style="bodyStyle" class="detailCard">
-      <div class="detailWrapper">
-        <div class="sliderWrapper">
-          <el-carousel :interval="3000" arrow="always" height="512px">
-            <el-carousel-item v-for="(pic, index) in pics" :key="index">
-              <el-image :src="pic" class="detailPic">
-                <template #error>
-                  <div class="errSlot">
-                    <el-icon><Picture /></el-icon>
-                  </div>
+  <el-card :body-style="bodyStyle" id="detailCard">
+    <el-row id="basic">
+      <el-carousel :interval="3000" arrow="always" height="256px" id="slider">
+        <el-carousel-item v-for="(pic, index) in pics" :key="index">
+          <el-image :src="pic" class="detailPic">
+            <!-- <template #placeholder>
+              <el-skeleton
+                style="width: 256px; height: 256px"
+                :loading="true"
+                animated
+              >
+                <template #template>
+                  <el-skeleton-item
+                    variant="image"
+                    style="width: 256px; height: 256px"
+                  />
                 </template>
-              </el-image>
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-        <div class="infoWrapper">
-          <div class="infoName">{{ detail.name }}</div>
-          <el-divider />
-          <!-- <div class="goodSales">销量：{{ good.sales }}</div> -->
-          <div>
-            <span class="infoLabel">价格区间：</span>
-            <span class="infoPrice">￥{{ detail.price }}</span>
-          </div>
-        </div>
+              </el-skeleton>
+            </template> -->
+            <template #error>
+              <div class="errSlot">
+                <el-icon><Picture /></el-icon>
+              </div>
+            </template>
+          </el-image>
+        </el-carousel-item>
+      </el-carousel>
+    </el-row>
+    <!-- <div class="infoWrapper">
+      <div class="infoName">{{ detail.name }}</div>
+      <el-divider />
+      <div>
+        <span class="infoLabel">价格区间：</span>
+        <span class="infoPrice">￥{{ detail.price }}</span>
       </div>
-    </el-card>
-  </div>
+    </div> -->
+  </el-card>
 </template>
 <script lang="ts" setup>
 import { apiGet } from '@/api';
@@ -47,15 +56,15 @@ apiGet('/api/good/summary', { id: route.query.id }).then((res) => {
 });
 </script>
 <style scoped>
-.cardWrapper {
-  margin: 30px;
+#detailCard{
+  flex-grow: 1;
 }
-.detailWrapper {
-  display: flex;
+#slider {
+  width: 50%;
+  height: 50%;
 }
-.sliderWrapper {
-  width: 512px;
-  height: 512px;
+.detailBody {
+  height: 810px;
 }
 .detailPic {
   border-top-left-radius: 4px;
@@ -66,7 +75,7 @@ apiGet('/api/good/summary', { id: route.query.id }).then((res) => {
   flex: 1;
 }
 .infoName {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
 }
 .infoLabel {
@@ -74,10 +83,6 @@ apiGet('/api/good/summary', { id: route.query.id }).then((res) => {
   color: #999;
   font-weight: bold;
 }
-/* .detailSales {
-  font-size: 14px;
-  color: #999;
-} */
 .infoPrice {
   font-size: 16px;
   color: #f5a623;

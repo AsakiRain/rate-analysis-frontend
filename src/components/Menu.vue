@@ -75,7 +75,7 @@ const handleSelect = (path: string) => {
   if (path.slice(1, 7) === 'detail') {
     router.push({
       path: path,
-      query: route.query
+      query: { id: route.query.id }
     });
   } else {
     router.push(path);
