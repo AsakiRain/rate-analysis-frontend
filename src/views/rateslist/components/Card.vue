@@ -1,31 +1,7 @@
 <template>
   <el-card :body-style="bodyStyle" id="detailCard">
     <el-row id="basic">
-      <el-carousel :interval="3000" arrow="always" height="256px" id="slider">
-        <el-carousel-item v-for="(pic, index) in pics" :key="index">
-          <el-image :src="pic" class="detailPic">
-            <!-- <template #placeholder>
-              <el-skeleton
-                style="width: 256px; height: 256px"
-                :loading="true"
-                animated
-              >
-                <template #template>
-                  <el-skeleton-item
-                    variant="image"
-                    style="width: 256px; height: 256px"
-                  />
-                </template>
-              </el-skeleton>
-            </template> -->
-            <template #error>
-              <div class="errSlot">
-                <el-icon><Picture /></el-icon>
-              </div>
-            </template>
-          </el-image>
-        </el-carousel-item>
-      </el-carousel>
+      
     </el-row>
     <!-- <div class="infoWrapper">
       <div class="infoName">{{ detail.name }}</div>
@@ -40,7 +16,6 @@
 <script lang="ts" setup>
 import { apiGet } from '@/api';
 import { reactive } from 'vue';
-import { Picture } from '@element-plus/icons-vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
