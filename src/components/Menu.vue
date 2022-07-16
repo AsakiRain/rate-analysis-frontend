@@ -10,10 +10,10 @@
       <el-icon><HomeFilled /></el-icon>
       <span>首页</span>
     </el-menu-item>
-    <el-menu-item index="/stat">
+    <!-- <el-menu-item index="/stat">
       <el-icon><Histogram /></el-icon>
       <span>统计信息</span>
-    </el-menu-item>
+    </el-menu-item> -->
     <el-menu-item index="/goods">
       <el-icon><GoodsFilled /></el-icon>
       <span>商品选择</span>
