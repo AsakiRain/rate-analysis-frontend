@@ -1,17 +1,17 @@
 <template>
-    <router-view />
+  <router-view />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import * as echarts from 'echarts';
+import 'echarts-wordcloud';
+import { provide } from 'vue';
 
-export default defineComponent({
-  components: {},
-});
+provide('echarts', echarts);
 </script>
 
 <style>
-body{
-    margin: 0;
+body {
+  margin: 0;
 }
 </style>
