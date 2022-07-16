@@ -52,7 +52,7 @@ apiGet('/api/goods').then((res) => {
 
 const handleClick = (good: Good) => {
   router.push({
-    path: '/detail/summary',
+    path: '/detail/rateslist',
     query: {
       id: good.id
     }

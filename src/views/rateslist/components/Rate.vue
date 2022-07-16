@@ -8,7 +8,7 @@
         </el-row>
       </div>
     </template>
-    <div id="rateBody">
+    <div id="rateBody" v-if="data">
       <el-row id="nameRow">
         <span>
           <el-tag
@@ -102,6 +102,9 @@
         />
       </el-row>
     </div>
+    <div id="rateEmpty" v-if="!data">
+      <el-empty :image-size="200" description="请选择要查看的评论"></el-empty>
+    </div>
   </el-card>
 </template>
 <script lang="ts" setup>
@@ -119,7 +122,7 @@ const picStyle = {
 
 const handleBack = () => {
   router.push({
-    path: '/detail/summary',
+    path: '/detail/rateslist',
     query: {
       id: route.query.id
     }
@@ -127,30 +130,34 @@ const handleBack = () => {
 };
 
 const data = computed(() => {
-  const raw = JSON.parse(route.query.data as string);
-  const hasAppend = raw.append_comment !== 'null';
-  const hasPicture = raw.pics !== '[]';
-  const append_comment = hasAppend ? JSON.parse(raw.append_comment) : null;
-  const pics = hasPicture ? JSON.parse(raw.pics) : null;
-  const hasAppendPicture = append_comment && append_comment.pics != [];
-  const appendPics = hasAppendPicture ? append_comment.pics : null;
-  let result = {
-    user_name: raw.user_name,
-    item_type: raw.item_type,
-    rate_content: raw.rate_content,
-    rate_date: raw.rate_date,
-    gold_user: raw.gold_user,
-    hasAppend,
-    hasPicture,
-    hasAppendPicture,
-    pics,
-    appendPics,
-    append_days: hasAppend ? append_comment.days : null,
-    append_comment: hasAppend ? append_comment.content : null,
-    reply: raw.reply,
-    sentiment: Math.floor(raw.sentiment * 10 * 100) / 100
-  };
-  return result;
+  if (route.query.data) {
+    const raw = JSON.parse(route.query.data as string);
+    const hasAppend = raw.append_comment !== 'null';
+    const hasPicture = raw.pics !== '[]';
+    const append_comment = hasAppend ? JSON.parse(raw.append_comment) : null;
+    const pics = hasPicture ? JSON.parse(raw.pics) : null;
+    const hasAppendPicture = append_comment && append_comment.pics != [];
+    const appendPics = hasAppendPicture ? append_comment.pics : null;
+    let result = {
+      user_name: raw.user_name,
+      item_type: raw.item_type,
+      rate_content: raw.rate_content,
+      rate_date: raw.rate_date,
+      gold_user: raw.gold_user,
+      hasAppend,
+      hasPicture,
+      hasAppendPicture,
+      pics,
+      appendPics,
+      append_days: hasAppend ? append_comment.days : null,
+      append_comment: hasAppend ? append_comment.content : null,
+      reply: raw.reply,
+      sentiment: Math.floor(raw.sentiment * 10 * 100) / 100
+    };
+    return result;
+  } else {
+    return null;
+  }
 });
 </script>
 <style scoped>

@@ -98,7 +98,7 @@ watch(
 const handleSelect = (row) => {
   if (row)
     router.push({
-      path: '/detail/summary',
+      path: '/detail/rateslist',
       query: {
         id: route.query.id,
         data: JSON.stringify(row)

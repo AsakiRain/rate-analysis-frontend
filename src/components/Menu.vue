@@ -23,8 +23,8 @@
         <el-icon><Menu /></el-icon>
         <span>商品详情</span>
       </template>
-      <el-menu-item index="/detail/summary" :disabled="!inDetail"
-        >商品概览</el-menu-item
+      <el-menu-item index="/detail/rateslist" :disabled="!inDetail"
+        >评论查看</el-menu-item
       >
       <el-menu-item index="/detail/statistic" :disabled="!inDetail"
         >数据分析</el-menu-item

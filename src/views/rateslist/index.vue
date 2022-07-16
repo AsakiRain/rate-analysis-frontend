@@ -6,30 +6,28 @@
       <List />
     </div>
     <div id="rightSide">
-      <Card v-if="show == 'card'" />
-      <Rate v-if="show == 'rate'" />
+      <Rate />
     </div>
   </el-main>
 </template>
 <script lang="ts" setup>
-import Card from './components/Card.vue';
 import Rate from './components/Rate.vue';
 import List from './components/List.vue';
 import pageHeader from '@/components/pageHeader.vue';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+// import { computed } from 'vue';
+// import { useRoute } from 'vue-router';
 
-const route = useRoute();
-const data = computed(() => {
-  return JSON.parse(route.query.data as string);
-});
-const show = computed(() => {
-  if (route.query.data) {
-    return 'rate';
-  } else {
-    return 'card';
-  }
-});
+// const route = useRoute();
+// const data = computed(() => {
+//   return JSON.parse(route.query.data as string);
+// });
+// const show = computed(() => {
+//   if (route.query.data) {
+//     return 'rate';
+//   } else {
+//     return 'card';
+//   }
+// });
 </script>
 <style>
 #summaryPage {

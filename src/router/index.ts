@@ -22,9 +22,9 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/goods/index.vue')
       },
       {
-        path: '/detail/summary',
-        name: 'summary',
-        component: () => import('@/views/summary/index.vue')
+        path: '/detail/rateslist',
+        name: 'rateslist',
+        component: () => import('@/views/rateslist/index.vue')
       },
       {
         path: '/detail/statistic',
