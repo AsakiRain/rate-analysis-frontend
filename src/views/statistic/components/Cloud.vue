@@ -1,5 +1,5 @@
 <template>
-  <el-card class="" id="cloudCard" :body-style="{padding:0}">
+  <el-card class="" id="cloudCard" :body-style="{padding:0}" shadow="never">
     <template #header>
       <el-row class="chartHeader" align="middle" :gutter="10">
         <el-col :span="1">词云图</el-col>
