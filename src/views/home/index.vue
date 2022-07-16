@@ -16,18 +16,28 @@
           :autosize="{ minRows: 2, maxRows: 6 }"
         />
       </el-col>
-        <el-button type="primary" :loading="isParsing" @click="handleParse">
-          解析
-        </el-button>
+      <el-button type="primary" :loading="isParsing" @click="handleParse">
+        解析
+      </el-button>
     </el-row>
   </el-main>
-  <el-dialog v-model="showDialog" :title="dialogTitle" width="30%">
-    <el-main v-if="actionType == 0 || actionType == 1">{{ message }}</el-main>
-    <Summary v-if="actionType == 2" :id="id" />
+  <el-dialog v-model="showMessage" title="提示" width="30%">
+    <el-main id="messageWrapper">{{ message }}</el-main>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="showDialog = false">取消</el-button>
-        <el-button type="primary" @click="handleConfirm" :loading="isQuerying">
+        <el-button @click="showMessage = false">取消</el-button>
+        <el-button type="primary" @click="handleConfirm">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+  <el-dialog v-model="showInfo" title="商品概览" width="860px">
+    <Summary :id="good_id" />
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="showInfo = false">取消</el-button>
+        <el-button type="primary" @click="handleConfirm">
           确定
         </el-button>
       </span>
@@ -36,25 +46,23 @@
 </template>
 <script setup lang="ts">
 import pageHeader from '@/components/pageHeader.vue';
+import Summary from '@/components/Summary.vue';
 import { ref } from 'vue';
 import { apiGet } from '@/api';
 import { ElMessage } from 'element-plus';
-import Summary from '@/components/Summary.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const isParsing = ref(false);
-const isQuerying = ref(false);
-const input = ref('');
-const showDialog = ref(false);
-const actionType = ref(-1);
+const input = ref('https://detail.tmall.com/item.htm?id=538766297543');
+const showMessage = ref(false);
+const showInfo = ref(false);
+const state = ref(-1);
 const message = ref('');
-const dialogTitle = ref('');
-const id = ref('');
+const good_id = ref('');
 
 const handleConfirm = () => {
-  isQuerying.value = true;
-  switch (actionType.value) {
+  switch (state.value) {
     case 0:
       ElMessage.success('操作成功');
       router.push({
@@ -70,12 +78,11 @@ const handleConfirm = () => {
       router.push({
         path: '/detail/rateslist',
         query: {
-          id: id.value
+          id: good_id.value
         }
       });
       break;
   }
-  isQuerying.value = false;
 };
 
 const handleParse = () => {
@@ -91,26 +98,26 @@ const handleParse = () => {
   }
   if (args['id'] == undefined || args['id'] == '')
     return ElMessage.error('请输入完整商品链接');
-  id.value = args['id'];
+  const id = args['id'];
   isParsing.value = true;
-  apiGet('/api/parse', { id: id.value })
+  apiGet('/api/parse', { id: id })
     .then((res) => {
       isParsing.value = false;
-      actionType.value = res.data.status;
-      switch (actionType.value) {
+      state.value = res.data.state;
+      switch (state.value) {
         case 0:
-          dialogTitle.value = '提示';
-          message.value = '该商品没有被数据库收录，你想要添加爬虫任务吗';
+          message.value = '该商品没有记录，是否启动收集任务？';
+          showMessage.value = true;
           break;
         case 1:
-          dialogTitle.value = '提示';
-          message.value = '该商品正在爬取，将导航到商品选择页面';
+          message.value = '该商品的任务正在运行，将跳转到商品选择页面';
+          showMessage.value = true;
           break;
         case 2:
-          dialogTitle.value = '商品概览';
+          good_id.value = id;
+          showInfo.value = true;
           break;
       }
-      showDialog.value = true;
     })
     .catch((err) => {
       isParsing.value = false;
@@ -118,7 +125,7 @@ const handleParse = () => {
     });
 };
 </script>
-<style scoped>
+<style>
 #welcomeRow {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -129,5 +136,12 @@ const handleParse = () => {
 }
 #bigWelcome {
   font-size: 48px;
+}
+.el-dialog__body {
+  padding: 0;
+}
+#messageWrapper {
+  text-align: center;
+  font-size: 16px;
 }
 </style>
