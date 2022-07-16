@@ -1,5 +1,5 @@
 <template>
-  <el-card id="rateCard">
+  <el-card id="rateCard" shadow="never">
     <template #header>
       <div id="rateHeader">
         <el-row justify="space-between" align="middle">
