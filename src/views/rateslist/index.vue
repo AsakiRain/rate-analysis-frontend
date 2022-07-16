@@ -14,20 +14,6 @@
 import Rate from './components/Rate.vue';
 import List from './components/List.vue';
 import pageHeader from '@/components/pageHeader.vue';
-// import { computed } from 'vue';
-// import { useRoute } from 'vue-router';
-
-// const route = useRoute();
-// const data = computed(() => {
-//   return JSON.parse(route.query.data as string);
-// });
-// const show = computed(() => {
-//   if (route.query.data) {
-//     return 'rate';
-//   } else {
-//     return 'card';
-//   }
-// });
 </script>
 <style>
 #summaryPage {
