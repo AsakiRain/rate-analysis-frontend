@@ -1,5 +1,5 @@
 <template>
-  <el-card id="listCard">
+  <el-card id="listCard" shadow="never">
     <template #header>
       <div id="listHeader">
         <el-row justify="space-between" align="middle">
