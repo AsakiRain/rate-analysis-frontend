@@ -1,5 +1,5 @@
 <template>
-  <pageHeader title="首页" tip="首页其实不需要这个组件" />
+  <pageHeader title="首页" tip="解析商品链接和添加任务" />
   <el-main class="pageWrapper">
     <el-row justify="center" id="welcomeRow">
       <div id="welcome">
@@ -26,9 +26,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="showMessage = false">取消</el-button>
-        <el-button type="primary" @click="handleConfirm">
-          确定
-        </el-button>
+        <el-button type="primary" @click="handleConfirm"> 确定 </el-button>
       </span>
     </template>
   </el-dialog>
@@ -37,9 +35,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="showInfo = false">取消</el-button>
-        <el-button type="primary" @click="handleConfirm">
-          确定
-        </el-button>
+        <el-button type="primary" @click="handleConfirm"> 确定 </el-button>
       </span>
     </template>
   </el-dialog>
@@ -48,13 +44,13 @@
 import pageHeader from '@/components/pageHeader.vue';
 import Summary from '@/components/Summary.vue';
 import { ref } from 'vue';
-import { apiGet } from '@/api';
+import { apiGet, apiPost } from '@/api';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const isParsing = ref(false);
-const input = ref('https://detail.tmall.com/item.htm?id=538766297543');
+const input = ref('');
 const showMessage = ref(false);
 const showInfo = ref(false);
 const state = ref(-1);
@@ -64,10 +60,19 @@ const good_id = ref('');
 const handleConfirm = () => {
   switch (state.value) {
     case 0:
-      ElMessage.success('操作成功');
-      router.push({
-        path: '/goods'
-      });
+      apiPost('/api/new', { url: input.value, id: parseID() })
+        .then((res) => {
+          if (res.data.ok == 1)
+            ElMessage.success('操作成功，将前往商品选择页面');
+          setTimeout(() => {
+            router.push({
+              path: '/goods'
+            });
+          }, 1000);
+        })
+        .catch((err) => {
+          ElMessage.error(err.message);
+        });
       break;
     case 1:
       router.push({
@@ -85,20 +90,32 @@ const handleConfirm = () => {
   }
 };
 
-const handleParse = () => {
+const parseID = () => {
   const url = input.value.trim();
-  if (url === '') return ElMessage.error('请输入商品链接');
+  if (url === '') {
+    ElMessage.error('请输入商品链接');
+    return null;
+  }
   const queryString = url.split('?')[1];
-  if (!queryString) return ElMessage.error('请输入完整商品链接');
+  if (!queryString) {
+    ElMessage.error('请输入完整商品链接');
+    return null;
+  }
   const queryArgs = queryString.split('&');
   let args = {};
   for (const arg of queryArgs) {
     const [key, value] = arg.split('=');
     args[key] = value;
   }
-  if (args['id'] == undefined || args['id'] == '')
-    return ElMessage.error('请输入完整商品链接');
-  const id = args['id'];
+  if (args['id'] == undefined || args['id'] == '') {
+    ElMessage.error('请输入完整商品链接');
+    return null;
+  }
+  return args['id'];
+};
+const handleParse = () => {
+  const id = parseID();
+  if (id == null) return;
   isParsing.value = true;
   apiGet('/api/parse', { id: id })
     .then((res) => {
