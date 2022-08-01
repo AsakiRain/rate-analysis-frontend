@@ -1,14 +1,29 @@
-/	
-│  .eslintrc.js     //代码规范检查		
-│  .gitignore       //git忽略文件列表
-│  .prettierrc.js   //代码格式化插件配置
-│  index.html       //入口网页
-│  package.json     //项目信息
-│  README.md        //自述文件
-│  tsconfig.json    //typescript编译配置
+# 评论数据分析-前端
+
+## 技术栈
+Vite + Vue3 + TypeScript + Element Plus + ECharts, ECharts-wordcloud
+
+## 使用
+```
+yarn            //安装依赖
+yarn dev        //启动开发服务器
+yarn build      //打包项目
+yarn preview    //查看打包网站
+```
+
+## 项目结构
+```
+/
+│  .eslintrc.js
+│  .gitignore
+│  .prettierrc.js
+│  index.html
+│  package.json
+│  README.md
+│  tsconfig.json
 │  tsconfig.node.json
-│  vite.config.ts   //vite打包配置
-│  yarn.lock        //依赖列表
+│  vite.config.ts
+│  yarn.lock
 ├─dist              //打包后输出目录
 ├─public            //资源文件夹
 │  │  favicon.ico
@@ -17,11 +32,11 @@
 │              70fbde217e894a2c8d2e421e4f34b5f8.png
 │              america.jpg
 │              c7799383fa1c43f98c2efda87eaebf0a.png
-└─src               //源代码文件夹
-    │  App.vue      //APP入口
-    │  main.ts      //js入口
+└─src               //源代码
+    │  App.vue
+    │  main.ts
     │  utils.ts     //封装html转义字符编解码函数
-    │  vite-env.d.ts//打包程序环境配置
+    │  vite-env.d.ts
     ├─api
     │      index.ts //封装get、post请求函数
     ├─components    //全局通用组件
@@ -56,3 +71,4 @@
                     Line.vue    //封装折线图
                     Pie.vue     //封装饼图
                     Wave.vue    //封装波浪条形图
+```
