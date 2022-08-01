@@ -35,6 +35,7 @@
 import { ref, watch } from 'vue';
 import { apiGet } from '@/api';
 import { useRoute, useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
 
 const route = useRoute();
 const router = useRouter();
@@ -73,10 +74,14 @@ const currentPage = ref(1);
 const count = ref(0);
 const data = ref([] as any[]);
 
-apiGet('/api/good/rates/count', { id: route.query.id }).then((res) => {
-  count.value = res.data['COUNT(*)'];
-  countLoaded.value = true;
-});
+apiGet('/api/good/rates/count', { id: route.query.id })
+  .then((res) => {
+    count.value = res.data['COUNT(*)'];
+    countLoaded.value = true;
+  })
+  .catch((err) => {
+    ElMessage.error(err.message);
+  });
 
 watch(
   () => currentPage.value,
@@ -85,10 +90,14 @@ watch(
     apiGet('/api/good/rates', {
       id: route.query.id,
       page: currentPage.value
-    }).then((res) => {
-      data.value = res.data;
-      listLoaded.value = true;
-    });
+    })
+      .then((res) => {
+        data.value = res.data;
+        listLoaded.value = true;
+      })
+      .catch((err) => {
+        ElMessage.error(err.message);
+      });
   },
   {
     immediate: true

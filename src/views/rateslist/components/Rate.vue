@@ -132,7 +132,11 @@ const handleBack = () => {
 const data = computed(() => {
   if (route.query.data) {
     const raw = JSON.parse(route.query.data as string);
-    const hasAppend = raw.append_comment !== 'null';
+    const hasAppend =
+      raw.append_comment != '' &&
+      raw.append_comment != null &&
+      raw.append_comment != undefined &&
+      raw.append_comment != 'null';
     const hasPicture = raw.pics !== '[]';
     const append_comment = hasAppend ? JSON.parse(raw.append_comment) : null;
     const pics = hasPicture ? JSON.parse(raw.pics) : null;

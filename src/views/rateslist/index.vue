@@ -1,5 +1,5 @@
 <template>
-  <pageHeader title="商品概览" tip="爬不到数据所以没什么信息" />
+  <pageHeader title="评论查看" tip="显示详细的爬取结果" />
   <el-main class="pageWrapper" id="summaryPage">
     <div id="leftSide">
       <!-- <Card /> -->
