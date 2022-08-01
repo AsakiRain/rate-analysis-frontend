@@ -2,13 +2,7 @@
   <router-view />
 </template>
 
-<script lang="ts" setup>
-import * as echarts from 'echarts';
-import 'echarts-wordcloud';
-import { provide } from 'vue';
-
-provide('echarts', echarts);
-</script>
+<script lang="ts" setup></script>
 
 <style>
 body {

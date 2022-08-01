@@ -17,7 +17,9 @@
           </template>
         </el-image>
         <div class="goodInfo">
-          <div class="goodName" v-if="good.name">{{ good.name }}</div>
+          <div class="goodName" v-if="good.name">{{
+            htmlUtil.decode(good.name)
+          }}</div>
           <div class="goodName" v-else>ID：{{ good.id }}</div>
           <div class="goodState">
             <el-tag :type="getType(good.state)">{{
@@ -37,7 +39,7 @@
       </template>
     </el-dialog>
     <el-dialog v-model="showState" title="收集状态" width="860px">
-      <State :id="current.state == 1 ? current.id : ''" />
+      <State :id="current.id" />
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="showState = false">取消</el-button>
@@ -54,6 +56,8 @@ import { Picture } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
 import Summary from '@/components/Summary.vue';
 import State from '@/components/State.vue';
+import { htmlUtil } from '@/utils';
+import { ElMessage } from 'element-plus';
 
 interface good {
   id: string;
@@ -90,15 +94,18 @@ const getText = (state: number) => {
       return '已完成';
   }
 };
-apiGet('/api/goods').then((res) => {
-  goods.value = res.data;
-});
+apiGet('/api/goods')
+  .then((res) => {
+    goods.value = res.data;
+  })
+  .catch((err) => {
+    ElMessage.error(err.message);
+  });
 
 const handleClick = (good: good) => {
   current.value = good;
   switch (current.value.state) {
     case -1:
-      break;
     case 1:
       showState.value = true;
       break;
@@ -110,7 +117,6 @@ const handleClick = (good: good) => {
 const handleConfirm = () => {
   switch (current.value.state) {
     case -1:
-      break;
     case 1:
       showState.value = false;
       break;

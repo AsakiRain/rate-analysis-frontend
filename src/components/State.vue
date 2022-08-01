@@ -30,6 +30,7 @@
 <script lang="ts" setup>
 import { ref, toRefs, watch } from 'vue';
 import { apiGet } from '@/api';
+import { ElMessage } from 'element-plus';
 
 interface data {
   cloud: number;
@@ -37,7 +38,7 @@ interface data {
   id: string;
   rates: number;
   sentiment: number;
-  stat: number;
+  state: number;
   statistic: number;
   summary: number;
 }
@@ -55,15 +56,24 @@ const data = ref({
   id: '',
   rates: 0,
   sentiment: 0,
-  stat: 0,
+  state: 0,
   statistic: 0,
   summary: 0
 } as data);
 let watcher: any;
 const update = () => {
-  apiGet('/api/good/state', { id: id.value }).then((res) => {
-    data.value = res.data;
-  });
+  apiGet('/api/good/state', { id: id.value })
+    .then((res) => {
+      data.value = res.data;
+      if (data.value.state == -1 && watcher) {
+        clearInterval(watcher);
+        ElMessage.error(`任务ID：${data.value.id} 失败！`);
+      }
+    })
+    .catch((err) => {
+      if (watcher) clearInterval(watcher);
+      ElMessage.error(err.message);
+    });
 };
 
 const getText = (state: number) => {

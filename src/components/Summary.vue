@@ -24,13 +24,14 @@
           placement="right-start"
           title="所有颜色分类"
           trigger="click"
+          width="400px"
         >
           <template #reference>
             <el-button>点击查看</el-button>
           </template>
-          <el-row v-for="type in data.sales" class="tag">
+          <el-row v-for="type in data.types" class="tag">
             <el-tag size="small">
-              {{ type.name }}
+              {{ type }}
             </el-tag>
           </el-row>
         </el-popover>
@@ -42,13 +43,14 @@
 import { ref, toRefs, watch } from 'vue';
 import { apiGet } from '@/api';
 import { Picture } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
 
 interface data {
   name: string;
   price: string;
-  sales: any;
   pics: string[];
-  descore: object;
+  descore: string[];
+  types: any[];
 }
 const props = defineProps({
   id: {
@@ -59,30 +61,20 @@ const props = defineProps({
 
 const { id } = toRefs(props);
 const isLoading = ref(true);
-const data = ref({
-  name: '获取中',
-  price: '获取中',
-  sales: [],
-  pics: [],
-  description: [],
-  descore: []
-} as data);
+const data = ref({} as data);
 
 watch(
   () => id.value,
   () => {
     if (id.value != '' && id.value != null) {
       isLoading.value = true;
-      apiGet('/api/good/summary', { id: id.value }).then((res) => {
-        const rawData = res.data;
-        data.value = {
-          name: rawData.name,
-          price: rawData.price,
-          sales: JSON.parse(rawData.sales),
-          pics: JSON.parse(rawData.picture),
-          descore: JSON.parse(rawData.descore)
-        };
-      });
+      apiGet('/api/good/summary', { id: id.value })
+        .then((res) => {
+          data.value = res.data;
+        })
+        .catch((err) => {
+          ElMessage.error(err.message);
+        });
     }
   },
   { immediate: true }
